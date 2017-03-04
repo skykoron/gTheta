@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import theta_s_ctrl, time
+import theta_s_ctrl, time, os
 
 cam = theta_s_ctrl.controller()
 
@@ -20,11 +20,12 @@ cam.shutter()
 time.sleep(2.0)
 
 # file download
-cam.download_latestfile('/home/pi/hogehoge.JPG')
+cam.download_latestfile('/home/pi/latest.JPG')
 
 # file SFTP to server
-host = '192.168.100.255'
+host = '192.168.100.235'
 user = 'amigos'
+print('INPUT PASSWORD')
 passwd = raw_input()
 local = '/home/pi/latest.JPG'
 remote = '/Users/amigos/Pictures/testdir/latest.JPG'
@@ -32,3 +33,4 @@ cam.file_sftp(host, user, passwd, local, remote)
 
 #file delete
 cam.delete_latestfile()
+os.remove(local)
