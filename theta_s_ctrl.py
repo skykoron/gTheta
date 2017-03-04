@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import subprocess, time, datetime
+import subprocess, time, datetime, paramiko
 
 class controller:
     '''
