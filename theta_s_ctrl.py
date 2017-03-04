@@ -166,6 +166,7 @@ class controller:
         ind = ret.rfind('#')
         filenum = int(ret[ind+1:ind+5])
         self._send_gphoto2_('--get-file '+str(filenum)+' --filename='+filepath)
+        return print(filepath)
 
     def delete_latestfile(self):
         ret = self._return_gphoto2_('--list-files')
@@ -173,5 +174,15 @@ class controller:
         eind = ret.rfind('JPG')
         filename = str(ret[sind:ind+3])
         self._send_gphoto2_('--delete-file /store_00010001/DCIM/100RICOH/'+filename)
+        return print(filename)
 
+    def file_sftp(self, host, user, passwd, local, remote):
+        conn = paramiko.SSHClient()
+        conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        conn.connect(host, username=user, password=passwd)
+        sfconn = conn.open_sftp()
+        sfconn.put(LOCAL_PATH, REMOTE_PATH)
+        sfconn.close()
+        conn.close()
+        return
 #Written by K.Urushihara
