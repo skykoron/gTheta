@@ -5,22 +5,69 @@ import subprocess, time, datetime, paramiko
 class controller:
     '''
     This program control RICOH THETA S camera.
-    The controller class is powered by gphoto2 (http://gphoto.sourceforge.net/).
-    This script is design for developers.
-    Please use upper scripts, if you are a general user.
+    The controller class is powered by gphoto2 ( http://gphoto.sourceforge.net/ ).
+    This script is designed for developers.
+    Please use upper level scripts, if you are a general user.
     '''
 
     def _send_gphoto2_(self, arg):
+        '''        
+        DESCRIPTION
+        ================
+        This function sends command of the gPhoto2 and runs it on the shell.
+        
+        ARGUMENTS
+        ================
+        1. arg: a command of the gPhoto2
+            Number: See the reference pages ( http://gphoto.org/doc/manual/ref-gphoto2-cli.html ).
+            Type: str
+            Default: None.
+
+        RETURNS
+        ================
+        Nothing.
+        '''
         cmd = 'sudo gphoto2 ' + arg
         subprocess.call(cmd, shell=True)
         return
 
     def _return_gphoto2_(self, arg):
+        '''        
+        DESCRIPTION
+        ================
+        This function sends command of the gPhoto2 and gets the results.
+        
+        ARGUMENTS
+        ================
+        1. arg: a command of the gPhoto2
+            Number: See the reference pages ( http://gphoto.org/doc/manual/ref-gphoto2-cli.html ).
+            Type: str
+            Default: None.
+
+        RETURNS
+        ================
+        1. results of the command
+            Type: str
+        '''
         cmd = 'sudo gphoto2 ' + arg
         ret = subprocess.check_output(cmd, shell=True)
         return ret
 
     def detect_camera(self):
+        '''        
+        DESCRIPTION
+        ================
+        This function query the information of the camera connected to the computer.
+        
+        ARGUMENTS
+        ================
+        1. Nothing.
+
+        RETURNS
+        ================
+        1. 
+            Type: str
+        '''
         ret = self._return_gphoto2_('--auto-detect')
         return ret
 
